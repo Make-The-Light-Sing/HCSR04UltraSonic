@@ -1,0 +1,4 @@
+HCSR04UltraSonic	KEYWORD1
+timing	KEYWORD2
+convert KEYWORD2
+readDistance KEYWORD2

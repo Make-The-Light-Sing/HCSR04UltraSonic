@@ -18,15 +18,18 @@
 class HCSR04UltraSonic
 {
 public:
-    HCSR04UltraSonic(byte tp, byte ep, unsigned int timeout = 50000);
+    HCSR04UltraSonic(byte tp, byte ep, unsigned long timeout = 50000);
     long timing();
     float convert(long microsec);
     virtual ~HCSR04UltraSonic();
     int readDistance();
+    void setTimeout(unsigned long timeout);
+    void setNbReading(unsigned char nb_reading);
 private:
     byte _trigPin;
     byte _echoPin;
-    unsigned int _timeout;
+    unsigned long _timeout;
+    unsigned char _nb_reading = 1;
 };
 
 #endif /* HCSR04ULTRASONIC_H_ */

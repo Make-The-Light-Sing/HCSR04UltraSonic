@@ -13,7 +13,7 @@
  * @param int tp Trigger pin number
  * @param int ep Echo pin number
  */
-HCSR04UltraSonic::HCSR04UltraSonic(byte tp, byte ep, unsigned int timeout)
+HCSR04UltraSonic::HCSR04UltraSonic(byte tp, byte ep, unsigned long timeout)
 {
     pinMode(tp, OUTPUT);
     pinMode(ep, INPUT);
@@ -63,9 +63,25 @@ float HCSR04UltraSonic::convert(long microsec)
 int HCSR04UltraSonic::readDistance()
 {
     long cm;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < _nb_reading; i++) {
         cm = convert(timing());
         if (cm < 4000) break;
     }
     return cm;
 }   // readDistance()
+
+/**
+ * Redefine timeout option
+ */
+void HCSR04UltraSonic::setTimeout(unsigned long timeout)
+{
+    _timeout = timeout;
+}
+
+/**
+ * Redefine nb reading for precision
+ */
+void HCSR04UltraSonic::setNbReading(unsigned char nb_reading)
+{
+    _nb_reading = nb_reading;
+}

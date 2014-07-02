@@ -41,7 +41,15 @@ long HCSR04UltraSonic::timing()
     digitalWrite(_trigPin, HIGH);
     delayMicroseconds(10);
     digitalWrite(_trigPin, LOW);
-    return pulseIn(_echoPin, HIGH, _timeout);
+    unsigned long read = pulseIn(_echoPin, HIGH, _timeout);
+    if (read == 0) {
+        if (_return_last_value_on_timeout) {
+            read = _last_value;
+        }
+    } else {
+        _last_value = read;
+    }
+    return read;
 }   // timing
 
 /**
